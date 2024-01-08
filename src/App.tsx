@@ -4,6 +4,11 @@ import './App.css';
 const App=()=>{
   const [todo, setTodo] = useState('');
   const [todoList, setTodoList] = useState(['할일1','할일2']);
+  const [prevTodoList, setPrevTodoList] = useState(['']);
+
+  const removeTodo=(idxToRemove : number)=>{
+    setTodoList((prevTodoList)=>prevTodoList.filter((_,idx)=>idx !== idxToRemove));
+  }
 
   return (
     <div>
@@ -16,9 +21,8 @@ const App=()=>{
                 <div key={'div' + idx}>
                   <input type={'text'} value={item||''} onChange={()=>{}}/> 
                   <button onClick={()=>{
-                    const tempList = todoList
-                    setTodoList(tempList.filter(titem=> titem !== item));
-                  }}>
+                    removeTodo(idx);
+                    }}>
                     삭제
                   </button>
                 </div>
