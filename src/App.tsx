@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
-function App() {
+const App=()=>{
+  const [todo, setTodo] = useState('');
+  const [todoList, setTodoList] = useState(['할일1','할일2']);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input type='text' value={todo||''} onChange={(e)=>setTodo(e.target.value)}/>
+      <button onClick={()=>{setTodoList([...todoList,todo])}}>할일추가!</button>
+
+      <div>
+        {
+          todoList?.map((item,idx)=>
+                <div key={'div' + idx}>
+                  <input type={'text'} value={item||''} onChange={()=>{}}/> 
+                  <button onClick={()=>{
+                    const tempList = todoList
+                    setTodoList(tempList.filter(titem=> titem !== item));
+                  }}>
+                    삭제
+                  </button>
+                </div>
+          )
+        }
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;
